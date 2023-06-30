@@ -10,7 +10,7 @@
 
                         func main() {
                             // Create a new Cloudflare API client
-                            api, err := cloudflare.NewWithAPIToken(<apiKey>)
+                            api, err := cloudflare.NewWithAPIToken(os.Getenv("CLOUDFLARE_API_TOKEN"))
                             if err != nil {
                                 log.Fatal(err)
                             }
