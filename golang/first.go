@@ -15,8 +15,6 @@
                                 log.Fatal(err)
                             }
 
-                            // Set up the domain name to check
-                            domainName := "example.com"
 
                             // Most API calls require a Context
                             ctx := context.Background()
