@@ -16,7 +16,7 @@ import (
 func ChkUser() string {
 	// Create a new Cloudflare API client
 	//api, err := cloudflare.NewWithAPIToken(os.Getenv("CLOUDFLARE_API_TOKEN"))
-	api, err := cloudflare.NewWithAPIToken("gTUuzv4crjAtBH7aUPbR_YQxiXDRkDmrFUAAYP7u")
+	api, err := cloudflare.NewWithAPIToken("......")
 	if err != nil {
 		log.Fatal(err)
 	}
