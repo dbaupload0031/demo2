@@ -121,10 +121,11 @@ func CloudflarePurgeResult(token string, fullname string, sub_dns_type string) s
 	}
 	ctx := context.Background()
 	fullName := fullname
-	subdomainname, domain := GetSubdomainAndDomain(fullName)
+	//subdomainname, domain := GetSubdomainAndDomain(fullName)
+	_, domain := GetSubdomainAndDomain(fullName)
 	dns_type := sub_dns_type
 	//fmt.Println("domain: " + domain)
-	fmt.Println("subdomainname " + subdomainname)
+	//fmt.Println("subdomainname " + subdomainname)
 
 	//check domain
 	exists, err := DomainExists(api, ctx, domain)
