@@ -188,7 +188,7 @@ func main() {
 	fmt.Println("++ " + a + " ++")
 
 	//init
-	api, err := cloudflare.NewWithAPIToken("gTUuzv4crjAtBH7aUPbR_YQxiXDRkDmrFUAAYP7u")
+	api, err := cloudflare.NewWithAPIToken(".......")
 	if err != nil {
 		fmt.Println(err)
 		return
