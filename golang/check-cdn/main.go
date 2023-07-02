@@ -25,8 +25,22 @@ func main() {
 			fmt.Println("========> DOMAIN_NOT_EXIST pleae check again.")
 		} else if clouflare_purge_result == "SUBDOMAIN_NOT_EXIST" {
 			fmt.Println("========> go other cloud CDN check")
-			//tencent CDN
-			//huawei CDN
+			/*
+								if(tencent.PurgeCdn(tencent-1,x,x,c)) {continue}
+								else if (tencent.PurgeCdn(tencent-2,x,x,c))
+								{continue}
+								else if (tencent.PurgeCdn(tencent-3,x,x,c))
+								{continue}
+				                else if (huawei.PurgeCdn(huawei-1,x,x,c))
+								{continue}
+				                else if (huawei.PurgeCdn(huawei-2,x,x,c))
+								{continue}
+				                else if (huawei.PurgeCdn(huawei-3,x,x,c))
+								{continue}
+								else{
+									fmt.Println("Not found !")
+								}
+			*/
 
 		} else {
 			fmt.Println("========> Cache purge successful for hostname.")
