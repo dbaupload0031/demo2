@@ -76,9 +76,6 @@ func GetSubdomainAndDomain(domainName string) (string, string) {
 	return "", ""
 }
 
-//https://pkg.go.dev/github.com/cloudflare/cloudflare-go@v0.70.0#API.ListDNSRecords
-// func check A type
-
 func ChkDnsRecord(api *cloudflare.API, ctx context.Context, zoneID string, dnstype string, fullName string) bool {
 	recs, _, err := api.ListDNSRecords(ctx, cloudflare.ZoneIdentifier(zoneID), cloudflare.ListDNSRecordsParams{Type: dnstype})
 	if err != nil {
@@ -98,7 +95,7 @@ func ChkDnsRecord(api *cloudflare.API, ctx context.Context, zoneID string, dnsty
 func PurgeCache(api *cloudflare.API, ctx context.Context, zoneID string, hostname string) error {
 	req := cloudflare.PurgeCacheRequest{
 		//Hosts: []string{hostname},//Only enterprise zones can purge by host
-		Files: []string{"https://jenkins.sre360.store/job/test/38 "},
+		Files: []string{"https://" + hostname + "/"},
 		//Everything: true, //ok
 	}
 
@@ -179,48 +176,3 @@ func ReadFileToArray(filename string) ([]string, error) {
 
 	return lines, nil
 }
-
-/*
-//pending to test,模組化需將main(),提到外面處理-----------
-func main() {
-	//ChkUser()
-	var a = ChkUser()
-	fmt.Println("++ " + a + " ++")
-
-	//init
-	api, err := cloudflare.NewWithAPIToken(".......")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	ctx := context.Background()
-	fullName := "jenkins.devopslife.shop"
-	subdomainname, dnsName := GetSubdomainAndDomain(fullName)
-	dns_type := "A"
-	fmt.Println("dnsName: " + dnsName)
-	fmt.Println("subdomainname " + subdomainname)
-
-	//call
-	exists, err := DomainExists(api, ctx, dnsName)
-	if err != nil {
-		log.Fatal(err)
-	}
-	if exists {
-		zoneid_res := SimpleChkZoneId(api, ctx, dnsName)
-		dns_res := ChkDnsRecord(api, ctx, zoneid_res, dns_type, fullName)
-
-		if dns_res {
-			fmt.Println("purge target:" + fullName)
-			PurgeCache(api, ctx, zoneid_res, fullName)
-		} else {
-			fmt.Println("Not found subdomain " + subdomainname + " in the domain " + dnsName + " with A record ")
-		}
-
-	} else {
-		fmt.Printf("Domain %s does not exist in Cloudflare\n", dnsName)
-	}
-
-}
-
-//-------------------------------------------------------
-*/
