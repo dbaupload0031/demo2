@@ -139,8 +139,8 @@ func CloudflarePurgeResult(token string, fullname string, sub_dns_type string) s
 		dns_res := ChkDnsRecord(api, ctx, zoneid_res, dns_type, fullName)
 
 		if dns_res {
-			//fmt.Println("purge target:" + fullName)
 			PurgeCache(api, ctx, zoneid_res, fullName)
+			fmt.Println("[Cloudflare] purge target:" + fullName)
 			return "TARGET_PURGE"
 		} else {
 			//fmt.Println("subdomain (" + subdomainname + ") does not exist in the domain (" + domain + ") with A record ")
