@@ -105,7 +105,8 @@ func PurgeCache(api *cloudflare.API, ctx context.Context, zoneID string, hostnam
 		return err
 	}
 
-	log.Printf("Cache purge successful for hostname: %s\n", hostname)
+	//log.Printf("Cache purge successful for hostname: %s\n", hostname)
+	fmt.Println("Cache purge successful for hostname: (" + hostname + ")")
 	log.Printf("Response: %+v\n", resp)
 
 	return nil
