@@ -44,11 +44,11 @@ func DomainExists(api *cloudflare.API, ctx context.Context, dnsName string) (boo
 	// Check if any zone has a matching domain name
 	for _, zone := range zones {
 		if zone.Name == dnsName {
-			zoneID, err := api.ZoneIDByName(dnsName)
+			_, err := api.ZoneIDByName(dnsName)
 			if err != nil {
 				log.Fatal(err)
 			}
-			fmt.Println("zoneID: " + zoneID)
+			//fmt.Println("zoneID: " + zoneID)
 			return true, nil
 		}
 	}
@@ -80,12 +80,12 @@ func ChkDnsRecord(api *cloudflare.API, ctx context.Context, zoneID string, dnsty
 	recs, _, err := api.ListDNSRecords(ctx, cloudflare.ZoneIdentifier(zoneID), cloudflare.ListDNSRecordsParams{Type: dnstype})
 	if err != nil {
 		fmt.Println(err)
-
+		return false
 	}
 	//fmt.Println(recs)
 	for _, r := range recs {
 		if r.Name == fullName {
-			fmt.Println(r.Name, r.Content)
+			//fmt.Println(r.Name, r.Content)
 			return true // Return true as soon as a matching record is found
 		}
 	}
@@ -106,9 +106,8 @@ func PurgeCache(api *cloudflare.API, ctx context.Context, zoneID string, hostnam
 	}
 
 	//log.Printf("Cache purge successful for hostname: %s\n", hostname)
-	fmt.Println("Cache purge successful for hostname: (" + hostname + ")")
-	log.Printf("Response: %+v\n", resp)
-
+	//fmt.Println("Cache purge successful for hostname: (" + hostname + ")")
+	log.Printf("[CloudFlare] Purge Cache Response: %+v\n", resp)
 	return nil
 }
 
@@ -124,7 +123,7 @@ func CloudflarePurgeResult(token string, fullname string, sub_dns_type string) s
 	fullName := fullname
 	subdomainname, domain := GetSubdomainAndDomain(fullName)
 	dns_type := sub_dns_type
-	fmt.Println("domain: " + domain)
+	//fmt.Println("domain: " + domain)
 	fmt.Println("subdomainname " + subdomainname)
 
 	//check domain
@@ -139,11 +138,11 @@ func CloudflarePurgeResult(token string, fullname string, sub_dns_type string) s
 		dns_res := ChkDnsRecord(api, ctx, zoneid_res, dns_type, fullName)
 
 		if dns_res {
-			fmt.Println("purge target:" + fullName)
+			//fmt.Println("purge target:" + fullName)
 			PurgeCache(api, ctx, zoneid_res, fullName)
 			return "TARGET_PURGE"
 		} else {
-			fmt.Println("subdomain (" + subdomainname + ") does not exist in the domain (" + domain + ") with A record ")
+			//fmt.Println("subdomain (" + subdomainname + ") does not exist in the domain (" + domain + ") with A record ")
 			return "SUBDOMAIN_NOT_EXIST"
 		}
 
