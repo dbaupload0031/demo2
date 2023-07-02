@@ -1,4 +1,0 @@
-jenkins100.sre360.store
-jenkins.sre360.store
-sam01.devopslife.shop
-sam05.devopslife.shop
