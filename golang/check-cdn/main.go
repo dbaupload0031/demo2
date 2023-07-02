@@ -33,6 +33,8 @@ func main() {
 			//tencent-1
 			if mytencent.PurgeCdn(Tencent_1_SecretId, Tencent_1_SecretKey, purge_target) {
 				continue
+			} else {
+				fmt.Println("Not found: " + purge_target)
 			}
 			/*
 								if(mytencent.PurgeCdn(tencent-1,x,x,c)) {continue}
