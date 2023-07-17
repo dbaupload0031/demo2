@@ -4,13 +4,19 @@ metadata:
   name: <deployment_name>-configmap
   namespace: <namespace>
 data:
+  app.env: ""
+  hipay.env: ""
+  hipay_pointcard_private_key.pem: ""
+  hipay_pointcard_public_key.pem: ""
+  sugoi.env: ""
+binaryData:
   app.env: |
-    {{ readFile "app.env" }}
+    $(cat app.env | base64)
   hipay.env: |
-    {{ readFile "hipay.env" }}
+    $(cat hipay.env | base64)
   hipay_pointcard_private_key.pem: |
-    {{ readFile "hipay_pointcard_private_key.pem" }}
+    $(cat hipay_pointcard_private_key.pem | base64)
   hipay_pointcard_public_key.pem: |
-    {{ readFile "hipay_pointcard_public_key.pem" }}
+    $(cat hipay_pointcard_public_key.pem | base64)
   sugoi.env: |
-    {{ readFile "sugoi.env" }}
+    $(cat sugoi.env | base64)
