@@ -13,8 +13,6 @@ spec:
       labels:
         app: <deployment_name>
     spec:
-      imagePullSecrets:
-      - name: regcred
       containers:
         - name: <deployment_name>
           image: <image_URL>
