@@ -1,16 +1,15 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: <deployment_name>-configmap
-  namespace: <namespace>
+  name: my-configmap
 data:
-  app.env: |-
-    {{ .Files.Get "app.env"  }}
-  hipay.env: |-
-    {{ .Files.Get "hipay.env" }}
-  hipay_pointcard_private_key.pem: |-
-    {{ .Files.Get "hipay_pointcard_private_key.pem" }}
-  hipay_pointcard_public_key.pem: |-
-    {{ .Files.Get "hipay_pointcard_public_key.pem" }}
-  sugoi.env: |-
-    {{ .Files.Get "sugoi.env"  }}
+  app.env: |
+    {{ readFile "app.env" }}
+  hipay.env: |
+    {{ readFile "hipay.env" }}
+  hipay_pointcard_private_key.pem: |
+    {{ readFile "hipay_pointcard_private_key.pem" }}
+  hipay_pointcard_public_key.pem: |
+    {{ readFile "hipay_pointcard_public_key.pem" }}
+  sugoi.env: |
+    {{ readFile "sugoi.env" }}
