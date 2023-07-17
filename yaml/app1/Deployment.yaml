@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <deployment_name>
+  namespace: <namespace>
+spec:
+  replicas: <replicas>
+  selector:
+    matchLabels:
+      app: <deployment_name>
+  template:
+    metadata:
+      labels:
+        app: <deployment_name>
+    spec:
+      containers:
+        - name: <deployment_name>
+          image: <image_URL>
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/configs
+      volumes:
+        - name: config-volume
+          configMap:
+            name: <deployment_name>-configmap
