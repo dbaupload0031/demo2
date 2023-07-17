@@ -5,12 +5,12 @@ metadata:
   namespace: <namespace>
 data:
   app.env: |
-    {{ .Files.Get "app.env" | quote }}
+    $(cat app.env)
   hipay.env: |
-    {{ .Files.Get "hipay.env" | quote }}
+    $(cat hipay.env)
   hipay_pointcard_private_key.pem: |
-    {{ .Files.Get "hipay_pointcard_private_key.pem" | quote }}
+    $(cat hipay_pointcard_private_key.pem)
   hipay_pointcard_public_key.pem: |
-    {{ .Files.Get "hipay_pointcard_public_key.pem" | quote }}
+    $(cat hipay_pointcard_public_key.pem)
   sugoi.env: |
-    {{ .Files.Get "sugoi.env" | quote }}
+    $(cat sugoi.env)
