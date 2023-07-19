@@ -1,25 +1,68 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app.kubernetes.io/instance: <deployment_name>
+    app.kubernetes.io/name: <deployment_name>
   name: <deployment_name>
   namespace: <namespace>
 spec:
   replicas: <replicas>
   selector:
     matchLabels:
-      app: <deployment_name>
+      app.kubernetes.io/instance: <deployment_name>
+      app.kubernetes.io/name: <deployment_name>
   template:
     metadata:
       labels:
-        app: <deployment_name>
+        app.kubernetes.io/instance: <deployment_name>
+        app.kubernetes.io/name: <deployment_name>
     spec:
       containers:
-        - name: <deployment_name>
-          image: <image_URL>
-          volumeMounts:
-            - name: config-volume
-              mountPath: /app/configs
+      - image: <image_URL>
+        imagePullPolicy: Always
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /readiness
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 5
+        name: <deployment_name>
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /readiness
+            port: http
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 5
+        resources:
+          limits:
+            cpu: 250m
+            ephemeral-storage: 1Gi
+            memory: 512Mi
+          requests:
+            cpu: 50m
+            ephemeral-storage: 1Gi
+            memory: 64Mi
+        volumeMounts:
+        - mountPath: /app/configs
+          name: <deployment_name>
+      #imagePullSecrets:
+      #- name: ntg-h365-prod-gcr-key
+      #serviceAccount: <deployment_name>
+      #serviceAccountName: <deployment_name>
       volumes:
-        - name: config-volume
-          configMap:
-            name: <deployment_name>-configmap
+      - configMap:
+          name: <deployment_name>-configmap
+        name: <deployment_name>
